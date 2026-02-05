@@ -14,12 +14,52 @@ public class App {
     public static void main(String[] args) throws Exception {
 
         JFrame frame = new JFrame();
-        makeButton(frame, "test", 150, 200, 220, 50);
+        // makeButton(frame, "test", 150, 200, 220, 50);
 
-        frame.setSize(500,600);
+        String [] num = {"1" , "2" , "3" , "4"};
+        String [] letter = {"a", "b", "c", "d", "e", "f", "g", "h", "i"};
+
+        int x = 0;
+        int y = 0;
+
+        //first aisle on left from mrs. morris spot
+
+        for(int i = 0; i < 4; i ++)
+            {
+                for(int j = 3; j > -1; j --)
+                {
+                    makeButton(frame, num[j] + letter[i], x, y, 50,50);
+    
+                    x += 50;
+                }
+                x = 0;
+                y += 50;
+                
+            }
+        
+            
+            for(int i = 0; i > 4; i ++)
+                {
+                    for(int j = 0; j > -1; j ++)
+                    {
+                        makeButton(frame, num[j] + letter[i], x, y, 50,50);
+        
+                        x += 50;
+                    }
+                    x = 0;
+                    y += 50;
+                    
+                }
+    
+
+
+        frame.setSize(600,240);
         frame.setLayout(null);
         frame.setVisible(true);
 
+        
+        
+        
 
 
         
