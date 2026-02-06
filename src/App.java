@@ -1,7 +1,10 @@
 import java.io.*;
 import javax.swing.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class App {
+
 
     public static JButton makeButton(JFrame frame, String buttonName, int buttonX, int buttonY, int buttonW, int buttonH)
     {
@@ -11,38 +14,39 @@ public class App {
 
         return button;
     }
+
     public static void main(String[] args) throws Exception {
 
         JFrame frame = new JFrame();
-        // makeButton(frame, "test", 150, 200, 220, 50);
 
         String [] num = {"1" , "2" , "3" , "4"};
-        String [] letter = {"a", "b", "c", "d", "e", "f", "g", "h", "i"};
+        String [] letter = {"a", "b", "c", "d", "e", "f", "g", "h", "i","j"};
+        List<String> seats = new ArrayList<>();
 
-        int x = 0;
-        int y = 0;
+        boolean [] exit = {false};
 
-        //first aisle on left from mrs. morris spot
-
-        for(int i = 0; i < 4; i ++)
+        makeButton(frame, "Finish", 250, 290, 75, 50).addActionListener(e ->
             {
-                for(int j = 3; j > -1; j --)
-                {
-                    makeButton(frame, num[j] + letter[i], x, y, 50,50);
-    
-                    x += 50;
-                }
-                x = 0;
-                y += 50;
-                
+                exit[0] = true;
             }
-        
-            
-            for(int i = 0; i > 4; i ++)
+        );
+
+
+        if (exit[0] == false)
+        {
+            int x = 0;
+            int y = 0;
+
+            //Aisles a-e
+            for(int i = 0; i < 5; i ++)
                 {
-                    for(int j = 0; j > -1; j ++)
+                    final int aisle = i; //look into this
+                    for(int j = 3; j > -1; j --)
                     {
-                        makeButton(frame, num[j] + letter[i], x, y, 50,50);
+                        final int seat = j;
+                        makeButton(frame, num[j] + letter[i], x, y, 50,50).addActionListener(e -> {
+                            seats.add(seat +": " + aisle);
+                        });
         
                         x += 50;
                     }
@@ -50,12 +54,39 @@ public class App {
                     y += 50;
                     
                 }
+            
+            x = 400;
+            y = 0;
+
+            //Aisles f-j
+            for(int i = 5 ; i < 10; i++)
+                {
+                    final int aisle = i;
+
+                    for(int j = 0; j < 4; j++)
+                    {
+                        final int seat = j;
+
+                        makeButton(frame, num[j] + letter[i], x, y, 50,50).addActionListener(e -> {
+                            seats.add(seat+": " + aisle);
+                        });
+        
+                        x += 50;
+                    }
+                    x = 400;
+                    y += 50;
+                
+            }
+        }
+        
     
 
 
-        frame.setSize(600,240);
+        frame.setSize(600,290);
         frame.setLayout(null);
         frame.setVisible(true);
+
+        // System.out.println(seats);  need to add another button to exit and than test this 
 
         
         
