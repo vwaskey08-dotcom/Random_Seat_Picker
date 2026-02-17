@@ -24,28 +24,7 @@ public class App {
         return button;
     }
 
-    // int x = 0;
-    // int y = 0;
-
-    // //Aisles a-e
-    // for(int i = 0; i < 5; i ++)
-    //     {
-    //         final String aisle = letter[i]; //look into this
-    //         for(int j = 3; j > -1; j --)
-    //         {
-    //             final String seat = num[j];
-    //             makeButton(frame, num[j] + letter[i], x, y, 50,50).addActionListener(e -> {
-    //                 seats.add(seat +": " + aisle);
-    //             });
-
-    //             x += 50;
-    //         }
-    //         x = 0;
-    //         y += 50;
-            
-    //     }
-
-    public static void createAisle(int startX, int startY, int startIndexAisle, int endIndexAisle, String [] letter, boolean forward)
+    public static void createAisle(int startX, int startY, int startIndexAisle, int endIndexAisle, String [] letter, boolean forward, String [] num, JFrame frame, List<String> seats)
     {
         int x = startX;
         int y = startY;
@@ -53,12 +32,41 @@ public class App {
         for(int i = startIndexAisle; i < endIndexAisle + 1; i ++)
         {
             final String aisle = letter[i];
-            if 
+            if(forward)
+            {
+                 for(int j = 0; j < 4; j++)
+                {
+                    final String seat = num[j];
+
+                    makeButton(frame, num[j] + letter[i], x, y, 50,50).addActionListener(e -> {
+                        seats.add(seat +": " + aisle);
+                    });
+    
+                    x += 50;
+                }
+                x = 350;
+                y += 50;
+            } 
+            else
+            {
+                for(int j = 3; j > -1; j --)
+                {
+                    final String seat = num[j];
+                    makeButton(frame, num[j] + letter[i], x, y, 50,50).addActionListener(e -> {
+                        seats.add(seat +": " + aisle);
+                    });
+
+                    x += 50;
+                }
+                x = 0;
+                y += 50;
+                
+            }
 
         }
     }
 
-    public static void createFirstPage(List<String> seats)
+    public static void createFirstPage(List<String> seats, String [] letter, String [] num)
     {
         JFrame frame = new JFrame();
         makeButton(frame, "Finish", 240, 200, 75, 50).addActionListener(e ->
@@ -67,6 +75,9 @@ public class App {
                 createSecondPage(seats);
             }
         );
+
+        createAisle(350, 0, 5, 9, letter, true, num, frame, seats);
+        createAisle(0, 0, 0 , 4, letter, false, num, frame, seats);
 
         frame.setSize(600,290);
         frame.setLayout(null);
@@ -104,49 +115,60 @@ public class App {
         List<String> seats = new ArrayList<>();
 
 
-        int x = 0;
-        int y = 0;
+      createFirstPage(seats, letter, num);
 
-        //Aisles a-e
-        for(int i = 0; i < 5; i ++)
-            {
-                final String aisle = letter[i]; //look into this
-                for(int j = 3; j > -1; j --)
-                {
-                    final String seat = num[j];
-                    makeButton(frame, num[j] + letter[i], x, y, 50,50).addActionListener(e -> {
-                        seats.add(seat +": " + aisle);
-                    });
+
     
-                    x += 50;
-                }
-                x = 0;
-                y += 50;
+
+
+
+
+
+
+
+
+
+
+        // //Aisles a-e
+        // for(int i = 0; i < 5; i ++)
+        //     {
+        //         final String aisle = letter[i]; //look into this
+        //         for(int j = 3; j > -1; j --)
+        //         {
+        //             final String seat = num[j];
+        //             makeButton(frame, num[j] + letter[i], x, y, 50,50).addActionListener(e -> {
+        //                 seats.add(seat +": " + aisle);
+        //             });
+    
+        //             x += 50;
+        //         }
+        //         x = 0;
+        //         y += 50;
                 
-            }
+        //     }
         
-        x = 350;
-        y = 0;
+        // x = 350;
+        // y = 0;
 
-        //Aisles f-j
-        for(int i = 5 ; i < 10; i++)
-            {
-                final String aisle = letter[i];
+        // //Aisles f-j
+        // for(int i = 5 ; i < 10; i++)
+        //     {
+        //         final String aisle = letter[i];
 
-                for(int j = 0; j < 4; j++)
-                {
-                    final String seat = num[j];
+        //         for(int j = 0; j < 4; j++)
+        //         {
+        //             final String seat = num[j];
 
-                    makeButton(frame, num[j] + letter[i], x, y, 50,50).addActionListener(e -> {
-                        seats.add(seat +": " + aisle);
-                    });
+        //             makeButton(frame, num[j] + letter[i], x, y, 50,50).addActionListener(e -> {
+        //                 seats.add(seat +": " + aisle);
+        //             });
     
-                    x += 50;
-                }
-                x = 350;
-                y += 50;
+        //             x += 50;
+        //         }
+        //         x = 350;
+        //         y += 50;
             
-        }
+        // }
         
         // makeButton(frame, "Finish", 240, 200, 75, 50).addActionListener(e ->
         //     {
